@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Monitor de Sismos Chile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div id="layout">
+    <aside id="panel">
+      <h1>Monitor de Sismos Chile</h1>
+      <p class="muted">
+        Datos: Centro Sismológico Nacional, Universidad de Chile.
+      </p>
+
+      <div id="status">Cargando datos...</div>
+
+      <section>
+        <h2>Últimos eventos</h2>
+        <div id="events"></div>
+      </section>
+
+      <section>
+        <h2>
+          Monitor en vivo (prototipo) — red CSN, todo Chile
+          <span class="live-badge"><span class="dot"></span>EN VIVO</span>
+        </h2>
+        <p class="muted">
+          Amplitud del movimiento del suelo medida cada 2 segundos por
+          estaciones reales de la Red Sismológica Nacional (CSN, red C1),
+          desde Arica hasta Magallanes — datos abiertos vía EarthScope/IRIS.
+          Llegan con un retraso de archivo de ~<span id="live-delay">4</span> min,
+          así que esto no es instantáneo como una alerta — es un prototipo
+          para evaluar la idea de un mapa de sacudidas en vivo estilo Japón.
+          Los niveles son relativos al ruido habitual de cada estación, no
+          una escala de intensidad calibrada.
+        </p>
+        <div id="live-status" class="muted">Cargando estaciones...</div>
+        <div id="live-stations"></div>
+      </section>
+    </aside>
+
+    <main id="map"></main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
