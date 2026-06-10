@@ -5,52 +5,28 @@
   <title>Monitor de Sismos Chile</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="app/styles.css" />
 </head>
 <body>
-  <div id="layout">
-    <aside id="panel">
-      <h1>Monitor de Sismos Chile</h1>
-      <p class="muted">
-        Datos: Centro Sismológico Nacional, Universidad de Chile.
-      </p>
-
-      <div id="status">Cargando datos...</div>
-
-      <section>
-        <h2>Últimos eventos</h2>
-        <div id="events"></div>
-      </section>
-
-      <section>
-        <h2>
-          Monitor en vivo (prototipo) — red CSN, todo Chile
-          <span class="live-badge"><span class="dot"></span>EN VIVO</span>
-        </h2>
-        <p class="muted">
-          Amplitud del movimiento del suelo medida cada 2 segundos por
-          estaciones reales de la Red Sismológica Nacional (CSN, red C1),
-          desde Arica hasta Magallanes — datos abiertos vía EarthScope/IRIS.
-          Llegan con un retraso de archivo de ~<span id="live-delay">4</span> min,
-          así que esto no es instantáneo como una alerta — es un prototipo
-          para evaluar la idea de un mapa de sacudidas en vivo estilo Japón.
-          Los niveles son relativos al ruido habitual de cada estación, no
-          una escala de intensidad calibrada.
-        </p>
-        <div id="live-status" class="muted">Cargando estaciones...</div>
-        <div id="live-stations"></div>
-      </section>
-    </aside>
-
-    <main id="map"></main>
-  </div>
+  <div id="root"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="/app.js"></script>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script src="app/config.js"></script>
+  <script src="app/data.js"></script>
+
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="app/map.jsx"></script>
+  <script type="text/babel" src="app/panels.jsx"></script>
+  <script type="text/babel" src="app/timeline.jsx"></script>
+  <script type="text/babel" src="app/main.jsx"></script>
 </body>
 </html>

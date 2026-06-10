@@ -1,0 +1,10 @@
+# Blueprint de Render: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: sismos-monitor-chile
+    runtime: node
+    plan: free
+    region: virginia # la región más cercana a Chile
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /

@@ -3,3 +3,6 @@ server.out.log
 server.err.log
 .env
 .claude/
+
+# Fuente del rediseño de UI (referencia local; la copia activa vive en public/)
+Mapa sísmico interactivo/
