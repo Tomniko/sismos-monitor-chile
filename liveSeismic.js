@@ -1,40 +1,70 @@
 import * as miniseed from "seisplotjs-miniseed";
 
-// Subconjunto de la red C1 (Red Sismológica Nacional / CSN, Universidad de Chile),
-// elegido para cubrir el país de norte a sur (Arica a Magallanes).
+// Estaciones de la red C1 (Red Sismológica Nacional / CSN, Universidad de Chile)
+// con datos disponibles verificados vía dataselect (sondeo 2026-06-10): 56 de las
+// ~75 listadas como activas. Cobertura de Arica a la Antártica, incluyendo Isla
+// de Pascua (VA02) y Juan Fernández (VA04).
 // Datos abiertos vía EarthScope (antes IRIS): https://www.fdsn.org/networks/detail/C1/
 export const STATIONS = [
   { code: "AP01", name: "Chacalluta (Arica)", lat: -18.37084, lon: -70.34197 },
   { code: "AP02", name: "Surire", lat: -18.853959, lon: -69.143334 },
-  { code: "AF01", name: "San Pedro de Atacama", lat: -22.95196, lon: -68.17876 },
+  { code: "TA02", name: "Huaiquique", lat: -20.270527, lon: -70.131035 },
   { code: "TA01", name: "Daracena (Tarapacá)", lat: -20.5656, lon: -70.1807 },
-  { code: "AC01", name: "Pan de Azúcar", lat: -26.14788, lon: -70.59866 },
-  { code: "AC06", name: "Copiapó", lat: -27.357117, lon: -70.354689 },
+  { code: "AF01", name: "San Pedro de Atacama", lat: -22.95196, lon: -68.17876 },
+  { code: "AF02", name: "Taltal", lat: -25.418768, lon: -70.45536 },
+  { code: "AC01", name: "Pan de Azucar", lat: -26.14788, lon: -70.59866 },
+  { code: "AC07", name: "Bahia Inglesa", lat: -27.1297, lon: -70.8602 },
+  { code: "VA02", name: "Isla de Pascua", lat: -27.16026, lon: -109.43474 },
   { code: "AC04", name: "Llanos de Challe", lat: -28.204575, lon: -71.073928 },
+  { code: "AC05", name: "El Transito", lat: -28.836377, lon: -70.273777 },
   { code: "CO05", name: "La Serena", lat: -29.91864, lon: -71.23841 },
-  { code: "CO02", name: "Combarbalá", lat: -31.2037, lon: -71.0003 },
-  { code: "MT07", name: "Cerro El Roble", lat: -32.975956, lon: -71.015636 },
+  { code: "CO01", name: "Juntas del Toro", lat: -29.9773, lon: -70.0939 },
+  { code: "CO06", name: "Fray Jorge", lat: -30.673813, lon: -71.634987 },
+  { code: "CO03", name: "El Pedregal", lat: -30.8389, lon: -70.6891 },
+  { code: "CO02", name: "Combarbala", lat: -31.2037, lon: -71.0003 },
+  { code: "CO04", name: "Los Peladeros", lat: -32.0433, lon: -70.9747 },
   { code: "VA06", name: "Catapilco", lat: -32.56117, lon: -71.29765 },
-  { code: "MT02", name: "Curacaví", lat: -33.2591, lon: -71.1377 },
+  { code: "VA03", name: "San Esteban", lat: -32.7637, lon: -70.5508 },
+  { code: "MT07", name: "Cerro El Roble", lat: -32.975956, lon: -71.015636 },
+  { code: "MT02", name: "Curacavi", lat: -33.2591, lon: -71.1377 },
+  { code: "MT10", name: "Hacienda Santa Martina", lat: -33.27279, lon: -70.53723 },
+  { code: "MT05", name: "Cerro Colorado - Renca", lat: -33.3919, lon: -70.7381 },
+  { code: "MT08", name: "Bocatoma Colorado", lat: -33.405158, lon: -70.133366 },
+  { code: "MT16", name: "Cchen", lat: -33.42848, lon: -70.523351 },
+  { code: "MT04", name: "Olivares", lat: -33.466388, lon: -70.136194 },
+  { code: "MT03", name: "Universidad Adolfo Ibanez", lat: -33.4936, lon: -70.5102 },
+  { code: "MT15", name: "Las Vizcachas", lat: -33.599397, lon: -70.506261 },
+  { code: "VA04", name: "Juan Fernández", lat: -33.6427, lon: -78.8299 },
+  { code: "VA05", name: "Santo Domingo", lat: -33.65711, lon: -71.61428 },
+  { code: "MT12", name: "Pirque", lat: -33.73273, lon: -70.54869 },
+  { code: "MT13", name: "San Alfonso", lat: -33.7435, lon: -70.28609 },
   { code: "MT09", name: "Talagante", lat: -33.77622, lon: -70.98867 },
+  { code: "MT01", name: "Daracena (Melipilla)", lat: -33.8641, lon: -71.2509 },
+  { code: "BO04", name: "La Punta", lat: -33.98884, lon: -70.60902 },
   { code: "BO01", name: "Tunca", lat: -34.3917, lon: -71.0848 },
   { code: "BO03", name: "Pichilemu", lat: -34.49605, lon: -71.9612 },
-  { code: "ML02", name: "Panimávida", lat: -35.7626, lon: -71.4181 },
-  { code: "BI05", name: "Faro Punta Hualpén", lat: -36.74784, lon: -73.19051 },
+  { code: "BO02", name: "Daracena (O'Higgins)", lat: -34.7924, lon: -70.7814 },
+  { code: "ML02", name: "Panimavida", lat: -35.7626, lon: -71.4181 },
+  { code: "BI06", name: "Cobquecura", lat: -36.131306, lon: -72.788472 },
+  { code: "BI05", name: "Faro Punta Hualpen", lat: -36.74784, lon: -73.19051 },
   { code: "BI07", name: "Lebu", lat: -37.68037, lon: -73.64293 },
-  { code: "LC02", name: "Puerto Saavedra", lat: -38.79189, lon: -73.39471 },
   { code: "LR03", name: "Panguipulli", lat: -39.632184, lon: -72.345701 },
   { code: "LR04", name: "Corral", lat: -39.88019, lon: -73.425822 },
-  { code: "LL03", name: "Lodge Petrohué", lat: -41.1384, lon: -72.40336 },
+  { code: "LR05", name: "Currine", lat: -40.229975, lon: -72.0044 },
+  { code: "LL03", name: "Lodge Petrohue", lat: -41.1384, lon: -72.40336 },
   { code: "LL05", name: "Los Muermos", lat: -41.405341, lon: -73.47445 },
+  { code: "LL06", name: "Loncomilla", lat: -42.215136, lon: -73.628348 },
   { code: "AY05", name: "Puerto Aguirre", lat: -45.150958, lon: -73.511667 },
+  { code: "AY02", name: "Valle Exploradores", lat: -46.48392, lon: -73.19474 },
   { code: "AY04", name: "Chile Chico", lat: -46.582606, lon: -71.6909 },
   { code: "AY03", name: "Cochrane", lat: -47.253042, lon: -72.590769 },
   { code: "MG02", name: "Cerro Sombrero", lat: -52.7808, lon: -69.2242 },
+  { code: "MG04", name: "Riesco", lat: -52.8572, lon: -71.57 },
+  { code: "MG03", name: "Isla Dawson", lat: -53.84798, lon: -70.46275 },
   { code: "IN44", name: "Base Arturo Prat (Antártica)", lat: -62.478742, lon: -59.664009 }
 ];
 
-const FETCH_CONCURRENCY = 6;
+const FETCH_CONCURRENCY = 8;
 
 const NETWORK = "C1";
 const CHANNEL = "BHZ";
