@@ -103,13 +103,19 @@ function ChileRail({ events, latRange, onZone, onLat }) {
     return () => ro.disconnect();
   }, []);
 
+  const dragging = pUseRef(false);
   const { w, h } = size;
+
+  // Oculto (display:none en móvil) o aún sin medir: no dibujar nada,
+  // las dimensiones derivadas saldrían negativas.
+  if (w < 20 || h < 40) {
+    return <div className="chile-rail" ref={hostRef} />;
+  }
+
   const padT = 8, padB = 8;
   const latToY = (lat) => padT + ((PC.LAT_TOP - lat) / (PC.LAT_TOP - PC.LAT_BOTTOM)) * (h - padT - padB);
   const yToLat = (y) => PC.LAT_TOP - ((y - padT) / (h - padT - padB)) * (PC.LAT_TOP - PC.LAT_BOTTOM);
   const lonToX = (lon) => 14 + ((lon + 77) / 11) * (w - 26);
-
-  const dragging = pUseRef(false);
 
   function handlePointer(e) {
     const rect = hostRef.current.getBoundingClientRect();

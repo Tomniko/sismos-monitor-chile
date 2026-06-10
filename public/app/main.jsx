@@ -23,7 +23,8 @@ function App() {
   const [playing, setPlaying] = useState(false);
   const [latRange, setLatRange] = useState(null);
   const [pulseQueue, setPulseQueue] = useState([]);
-  const [mobileTab, setMobileTab] = useState("eventos");
+  // En móvil parte mostrando el mapa completo; en escritorio las pestañas no aplican.
+  const [mobileTab, setMobileTab] = useState("mapa");
   const [, forceTick] = useState(0); // re-render p/ contador "hace X"
 
   const mapApiRef = useRef(null);
@@ -119,7 +120,7 @@ function App() {
   const isReplay = replayTime !== null;
 
   return (
-    <div className={`app layout-${t.layout}${t.density === "compacta" ? " density-compacta" : ""}`}>
+    <div className={`app layout-${t.layout} mtab-${mobileTab}${t.density === "compacta" ? " density-compacta" : ""}`}>
       <MapView
         events={visible}
         selectedId={selectedId}
@@ -153,7 +154,7 @@ function App() {
         <StatsRow events={events} />
         <FiltersCard minMag={minMag} setMinMag={setMinMag} depthId={depthId} setDepthId={setDepthId} />
 
-        <div className="panel" style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
+        <div className="panel events-panel" style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
           <div className="section-title">
             <span>{isReplay ? "Hasta el cursor del replay" : "Eventos recientes"}</span>
             <span className="count">{visible.length}</span>
@@ -166,7 +167,7 @@ function App() {
       </div>
 
       {/* columna derecha: muro de estaciones */}
-      <div className={"right-col" + (mobileTab === "estaciones" ? " mobile-visible" : "")}>
+      <div className="right-col">
         <StationWall stations={stations} onStation={handleStation} />
       </div>
 
@@ -181,10 +182,17 @@ function App() {
         setPlaying={setPlaying}
       />
 
-      {/* tabs móviles */}
+      {/* tabs móviles: tocar la pestaña activa vuelve al mapa */}
       <div className="panel mobile-tabs">
-        <button className={mobileTab === "eventos" ? "on" : ""} onClick={() => setMobileTab("eventos")}>Eventos</button>
-        <button className={mobileTab === "estaciones" ? "on" : ""} onClick={() => setMobileTab("estaciones")}>Estaciones</button>
+        {[["mapa", "Mapa"], ["eventos", "Eventos"], ["estaciones", "Estaciones"]].map(([id, label]) => (
+          <button
+            key={id}
+            className={mobileTab === id ? "on" : ""}
+            onClick={() => setMobileTab(mobileTab === id && id !== "mapa" ? "mapa" : id)}
+          >
+            {label}
+          </button>
+        ))}
       </div>
 
       <TweaksPanel>

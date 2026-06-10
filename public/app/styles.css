@@ -797,27 +797,17 @@ html, body {
 .mobile-tabs { display: none; }
 
 @media (max-width: 880px) {
+  /* Por defecto (pestaña "Mapa") ambos paneles están cerrados: mapa completo. */
   .layout-flotante .left-col,
-  .layout-lateral .left-col {
-    top: auto;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 46vh;
-    padding: 10px 10px 12px;
-    background: var(--panel-solid);
-    border-top: 1px solid var(--panel-border);
-    border-right: none;
-    border-radius: 20px 20px 0 0;
-  }
-
+  .layout-lateral .left-col,
   .layout-flotante .right-col,
   .layout-lateral .right-col {
     display: none;
   }
 
-  .right-col.mobile-visible {
+  /* Hoja inferior compartida por ambas pestañas */
+  .mtab-eventos .left-col,
+  .mtab-estaciones .right-col {
     display: flex !important;
     position: absolute;
     top: auto;
@@ -825,18 +815,48 @@ html, body {
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 46vh;
+    height: 62vh;
+    padding: 10px 10px 12px;
+    background: var(--panel-solid);
+    border: none;
+    border-top: 1px solid var(--panel-border);
+    border-radius: 20px 20px 0 0;
     z-index: 700;
   }
 
+  /* Eventos: la hoja completa scrollea (hero, stats, filtros y TODA la lista) */
+  .mtab-eventos .left-col {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.14) transparent;
+  }
+
+  .mtab-eventos .left-col > .panel { flex-shrink: 0; }
+
+  /* La lista de eventos crece a su altura natural; scrollea la hoja, no la lista */
+  .mtab-eventos .events-panel { flex: 0 0 auto !important; min-height: 0 !important; }
+  .mtab-eventos .list-body { overflow: visible; }
+  .mtab-eventos .event-list { overflow: visible; }
+
+  /* El rail de Chile se estiraría junto a la lista completa; mejor ocultarlo */
+  .mtab-eventos .chile-rail { display: none; }
+
+  /* Timeline: sobre la hoja cuando hay panel abierto, abajo cuando solo hay mapa */
   .layout-flotante .timeline-bar,
   .layout-lateral .timeline-bar {
     left: 10px;
     right: 10px;
-    bottom: calc(46vh + 10px);
+    bottom: 10px;
   }
 
-  .basemap-switch { right: auto; left: 10px; top: 10px; }
+  .mtab-eventos .timeline-bar,
+  .mtab-estaciones .timeline-bar {
+    bottom: calc(62vh + 10px);
+  }
+
+  /* bajo las pestañas para no chocar con ellas en pantallas angostas */
+  .basemap-switch { right: auto; left: 10px; top: 54px; }
 
   .legend { display: none; }
 
