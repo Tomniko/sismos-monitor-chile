@@ -34,6 +34,12 @@ npm start
 
 Luego abre [http://localhost:3000](http://localhost:3000).
 
+## Verlo de forma Online
+
+Actualmente, la página se encuentra activa y alojada en la siguiente dirección de Render:
+[https://sismos-monitor-chile.onrender.com/](https://sismos-monitor-chile.onrender.com/)
+
+
 ## Estructura
 
 - `server.js` — servidor Express: scraping del catálogo CSN (`/api/events`) y
